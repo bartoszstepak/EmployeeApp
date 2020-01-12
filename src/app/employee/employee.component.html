@@ -1,0 +1,11 @@
+<h2>Employees list by login</h2>
+<div class="employeeList">
+    <ul class="list-group">
+        <li  class="list-group-item" *ngFor=" let employee of employees">
+            <span class="badge"> {{employee.firstName}} </span>
+            <span class="badge"> {{employee.secondName}} </span>
+            <button  *ngIf="isSuperUser() && this.employee.id != this.user.id" class="btn btn-danger btn-sm" title="delete" (click)="delete(employee)">x</button>
+            <button  class="btn btn-primary btn-sm" routerLink="/detail/{{employee.id}}" >details</button>
+    </li>
+    </ul>
+</div>

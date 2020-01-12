@@ -1,0 +1,17 @@
+<div class="center">
+  <nav class="navbar navbar-expand-sm">
+    <ul class=" navbar-nav"> 
+      <li class="nav-item"><a routerLink="/">Employee List </a></li>
+      <li *ngIf="canAddEmployee()" class="nav-item"><a routerLink="/add"> Add Employee</a></li>
+      <li class="nav-item"><a routerLink="/myAccount"> My account</a></li>
+    </ul>
+    <a href="/auth/admin" (click)="singOut()" style="background-color: #333; padding: 13px;">
+      <span class="logout-button">LogOut</span>
+    </a>
+  </nav>
+  <br>
+  <div id="content">
+    <router-outlet></router-outlet>
+  </div>
+  <br>
+</div>

@@ -1,0 +1,7 @@
+button{
+    margin: 5px;
+}
+.validationAlert {
+    color: rgb(214, 16, 16);
+    font-size: small;
+}

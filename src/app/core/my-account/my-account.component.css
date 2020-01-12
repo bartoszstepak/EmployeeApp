@@ -1,0 +1,15 @@
+.form-control{
+    margin-bottom: 10px;
+}
+
+.form-group{
+    padding: 15px;
+}
+
+.input-password{
+    width: 75%;
+}
+
+.save-button{
+    width: 25%;
+}

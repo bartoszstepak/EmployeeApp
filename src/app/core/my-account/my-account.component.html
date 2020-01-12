@@ -1,0 +1,17 @@
+<div *ngIf="this.employee"> 
+    <form [formGroup]="accountForm">
+        <div class="form-group">
+            <button class="btn btn-outline-primary form-control" (click)="navigateToUserDetails()">Account Details</button>
+            <button class="btn btn-outline-primary form-control" (click)="showPasswordInput()">Reset Password</button>
+            <div *ngIf="this.canShowPAsswordInput" class="input-group">
+                    <input  type="password" [(ngModel)]="employee.password" formControlName="password" class="form-control input-password">
+                    <button class="btn btn-outline-primary form-control save-button" (click)="resetPassword()">save</button>  
+            </div>
+            <div *ngIf="this.passwordChanged && canShowPasswordMessage">
+                <button type="button" class="btn btn-success form-control" disabled><p>{{this.passwordChangedMessage}}</p></button>
+            </div>
+            <button class="btn btn-outline-primary form-control" (click)="singOut()">sing out</button>
+        </div>
+    </form>
+</div>
+

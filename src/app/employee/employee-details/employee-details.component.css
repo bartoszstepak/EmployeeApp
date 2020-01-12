@@ -1,0 +1,14 @@
+button{
+    margin: 5px;
+}
+
+#detailsTable {
+    
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+img {
+    max-width: 260px;
+    max-height: 260px;
+}

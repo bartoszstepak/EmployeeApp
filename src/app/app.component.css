@@ -1,0 +1,51 @@
+.center{
+    position: relative;
+    text-align: center;
+}
+
+
+a {
+    text-decoration: none;
+  }
+  nav {
+      padding: 0;
+  }
+ul {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+ .logout-button{
+   height: 50px;
+   color: white;
+ }
+
+ a{
+   text-decoration: none;
+ }
+
+ ul{
+   height: 50px;
+ }
+
+ nav{
+   height: 50px;
+ }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+ 
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #111;
+  }

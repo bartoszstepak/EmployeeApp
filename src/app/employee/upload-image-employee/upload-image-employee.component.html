@@ -1,0 +1,14 @@
+<div *ngIf="img">
+    <h2>Your current photo</h2>
+    <br><br>
+    <img [src]="imgSrc | safe">
+</div>
+<br>
+<form class="form-group">
+    <div *ngIf="img">
+        <p>Select file if you wnat to change your photo</p>
+    </div>
+    <input type="file" id="file" accept="image/*" (change)="handleFileInput($event.target.files)">
+    <button class="btn btn-outline-primary" (click)="goBack()">go back</button>
+
+</form>

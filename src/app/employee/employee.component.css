@@ -1,0 +1,9 @@
+.employeeList {
+  text-align: left;
+  max-width: 90%;
+  margin: auto;
+}
+button {
+  float: right;
+  margin-left: 5px;
+}

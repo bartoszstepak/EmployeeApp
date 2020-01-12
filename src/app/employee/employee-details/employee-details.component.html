@@ -1,0 +1,32 @@
+<div *ngIf="employee">
+    <h2>Employee details</h2>
+    <br>
+    <table id="detailsTable" class="table table-condensed" style="width:90%;">
+        <tbody>
+            <tr>
+                <td>login</td>
+                <td>{{employee.login}}</td>
+            </tr>
+            <tr>
+                <td>first name</td>
+                <td>{{employee.firstName}}</td>
+            </tr>
+            <tr>
+                <td>second name</td>
+                <td>{{employee.secondName}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="img">
+    <img [src] = "imgSrc | safe" >
+    </div>
+    <br>
+    <button class="btn btn-outline-primary" (click)="goBack()">go back</button>
+    <button *ngIf="canUpdateData()" class="btn btn-primary" routerLink="/addImage//{{employee.id}}">update Photo</button>
+    <button *ngIf="canUpdateData()" class="btn btn-primary" routerLink="/update/{{employee.id}}">update data</button>
+</div>
