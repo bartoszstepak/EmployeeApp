@@ -12,7 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule, AuthGuard } from '../core';
 import { InterceptorService } from './services/interceptor.service';
-import { MyTasksComponent } from './my-tasks/my-tasks.component' 
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { TaksDetailsComponent } from './taks-details/taks-details.component' 
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MyTasksComponent } from './my-tasks/my-tasks.component'
     CreateEmployeeComponent,
     UploadImageEmployeeComponent,
     SafePipe,
-    MyTasksComponent
+    MyTasksComponent,
+    TaksDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,14 @@ import { MyTasksComponent } from './my-tasks/my-tasks.component'
       {
         path: 'update/:id', 
         component: UpdateEmployeeComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'Tasks', 
+        component: MyTasksComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'Tasks/:id',
+        component: TaksDetailsComponent, canActivate: [AuthGuard]
       }
     ])
   ],

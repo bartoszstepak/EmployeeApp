@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Task } from '../model/Task';
+import { MyTask } from '../model/MyTask';
 import { catchError } from 'rxjs/operators';
 import { EmployeeService } from './employee.service';
 import { User } from '../Model/EmployeeData';
@@ -11,6 +11,7 @@ import { User } from '../Model/EmployeeData';
 })
 export class TaskService{
 
+
   token: any;
   isLoggedIn: boolean;
   httpOptions = {
@@ -19,7 +20,7 @@ export class TaskService{
       })
   };
   
-  private TaskBaseURL = 'http://localhost:49362/api/Vaules/Tasks';
+  private TaskBaseURL = 'http://localhost:49362/api/MyTasks';
   private SUPER_USER_ID = 10;
 
 
@@ -30,47 +31,48 @@ export class TaskService{
     this.token = localStorage.getItem("jwt");
   }
  
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.TaskBaseURL)
+  getTasks(): Observable<MyTask[]> {
+    return this.http.get<MyTask[]>(this.TaskBaseURL)
       .pipe(
-        catchError(this.handleError<Task[]>('getTasks', []))
+        catchError(this.handleError<MyTask[]>('getTasks', []))
       );
   }
+
   
 
-  getUserTasks(): Observable<Task[]> {
+  getUserTasks(): Observable<MyTask[]> {
     var user = this.employeeService.getCurrentUser();
     var userId =  user.id.toString()
-    const url = `${this.TaskBaseURL}/User${userId}`;
+    const url = `${this.TaskBaseURL}/User/${userId}`;
     
-    return this.http.get<Task[]>(url)
+    return this.http.get<MyTask[]>(url)
       .pipe(
-        catchError(this.handleError<Task[]>('getTasks', []))
+        catchError(this.handleError<MyTask[]>('getTasks', []))
       );   
   }
 
-  getTask(id: number): Observable<Task> {
+  getTask(id: number): Observable<MyTask> {
     const url = `${this.TaskBaseURL}/${id}`;
-    return this.http.get<Task>(url, ).pipe(
-      catchError(this.handleError<Task>(`getTask id=${id}`))
+    return this.http.get<MyTask>(url, ).pipe(
+      catchError(this.handleError<MyTask>(`getTask id=${id}`))
     );
   }
 
-  updateTask(employee: Task): Observable<any> {
-    return this.http.put(`${this.TaskBaseURL}/${employee.id}`, employee ).pipe(
+  updateTask(task: MyTask): Observable<any> {
+    return this.http.put(`${this.TaskBaseURL}/${task .id}`, task ).pipe(
       catchError(this.handleError<any>('updateTask'))
     );
   }
 
-  createTask(employee: Task): Observable<any> {
+  createTask(employee: MyTask): Observable<any> {
     return this.http.post<any>(this.TaskBaseURL, employee, {observe: 'response'}).pipe(
       catchError(this.handleError<any>('createTask'))
     );
   }
 
-  deleteTask(id: number): Observable<Task> {
+  deleteTask(id: number): Observable<MyTask> {
     const url = `${this.TaskBaseURL}/${id}`;
-    return this.http.delete<Task>(url);
+    return this.http.delete<MyTask>(url);
   }
 
 

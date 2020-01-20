@@ -1,0 +1,25 @@
+<div *ngIf="Task">
+  <h2>Task details</h2>
+  <br>
+  <table id="detailsTable" class="table table-condensed" style="width:90%;">
+    <tbody>
+      <tr>
+        <td>{{Task.title}}</td>
+      </tr>
+      <tr>
+        <td>created by : {{Task.createdBy}}</td>
+      </tr>
+      <tr *ngIf="Task.content && Task.content.length > 0 ">
+        <td>{{Task.content}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <br>
+  <button class="btn btn-outline-primary" (click)="goBack()">go back</button>
+</div>
