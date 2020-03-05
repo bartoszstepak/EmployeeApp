@@ -7,7 +7,7 @@ export class MyTask{
     assignedTo: number;
 }
 
-export enum TaskStatus{
+export enum TaskStatusNames{ 
     NEW = "NEW",
     ASSIGNED = "ASSIGNED",
     DONE = "DONE",
@@ -15,8 +15,8 @@ export enum TaskStatus{
 }
 
 export enum TaskStatusValues{
-    NEW = 1,
+    NEW = 3,
     ASSIGNED = 2,
-    DONE = 3,
-    ENDED = 4   
+    DONE = 1,
+    ENDED = 0   
 }

@@ -14,6 +14,7 @@ import { CoreModule, AuthGuard } from '../core';
 import { InterceptorService } from './services/interceptor.service';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { TaksDetailsComponent } from './taks-details/taks-details.component' 
+import { NewTaskComponent } from '../new-task/new-task.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,10 @@ import { TaksDetailsComponent } from './taks-details/taks-details.component'
       {
         path: 'Tasks', 
         component: MyTasksComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'NewTask', 
+        component: NewTaskComponent, canActivate: [AuthGuard]
       },
       {
         path: 'Tasks/:id',

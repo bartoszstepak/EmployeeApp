@@ -10,11 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { EmployeeModule } from './employee/employee.module';
 import { CoreModule } from './core';
 import { AuthService } from './core/services/auth.service';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeComponent,
+    NewTaskComponent,
   ],
   imports: [
     BrowserModule,

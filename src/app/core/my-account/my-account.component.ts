@@ -10,7 +10,6 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.css']
-
 })
 export class MyAccountComponent implements OnInit {
 
@@ -36,7 +35,7 @@ export class MyAccountComponent implements OnInit {
     this.getEmployee();
 
     if (!this.authService.isLoggedIn()) {
-      this.router.navigate(["/auth/admin"]);
+      this.router.navigate(["/login"]);
     }
 
     this.accountForm = this.formBuilder.group({
@@ -56,7 +55,7 @@ export class MyAccountComponent implements OnInit {
 
   singOut(): void {
     this.authService.deleteToken();
-    this.router.navigate(["/auth/admin"]);
+    this.router.navigate(["/login"]);
   }
 
   resetPassword(): void {

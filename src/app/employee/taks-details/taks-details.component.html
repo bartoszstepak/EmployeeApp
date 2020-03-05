@@ -4,22 +4,35 @@
   <table id="detailsTable" class="table table-condensed" style="width:90%;">
     <tbody>
       <tr>
-        <td>{{Task.title}}</td>
+        <!--  pomnijszyc opisy, title większy , niopac end i done  -->
+        <td> assigned by : <span *ngIf="cueenrtUserAsEmplyee">{{cueenrtUserAsEmplyee.firstName}} {{cueenrtUserAsEmplyee.secondName}} </span></td>
       </tr>
       <tr>
-        <td>created by : {{Task.createdBy}}</td>
+        <td>created by : <span *ngIf="taskCreator">{{taskCreator.firstName}} {{taskCreator.secondName}}</span></td>
+      </tr>
+      <tr>
+        <td>{{Task.title}}</td>
       </tr>
       <tr *ngIf="Task.content && Task.content.length > 0 ">
         <td>{{Task.content}}</td>
       </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
     </tbody>
   </table>
 
+  <ng-container *ngIf="this.security.isSuperUser() && Task; then superUserActions else UserActions"></ng-container>
 
-  <br>
-  <button class="btn btn-outline-primary" (click)="goBack()">go back</button>
+
+  <ng-template #superUserActions>
+    <button class="btn btn-success" (click)="doneTask(Task)"
+    [disabled]="isTaskDone(Task)">done</button>
+    <button class="btn btn-info" (click)="endTask(Task)"
+    [disabled]="isTaskEnded(Task)">end</button>
+  </ng-template>
+
+  <ng-template #UserActions>
+    <button class="btn btn-success" (click)="doneTask(Task)"
+    [disabled]="isTaskDone(Task)">done</button>
+  </ng-template>
+
 </div>
+  

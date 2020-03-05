@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../services/task.service';
-import { MyTask, TaskStatus, TaskStatusValues } from '../model/MyTask';
+import { MyTask, TaskStatusNames, TaskStatusValues } from '../model/MyTask';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { stringify } from 'querystring';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-my-tasks',
@@ -29,36 +29,42 @@ export class MyTasksComponent implements OnInit {
   }
 
   getTaks(): void {
-    if(this.secutiry.isSuperUser()){
-      this.taskService.getTasks().subscribe(
+      this.taskService.getTasks(this.secutiry.isSuperUser()).subscribe(
         result => {
           if(result) {
+            this.sortTasksByStatus(result);
             this.MyTasks = result;
+            this.MyTasks = this.MyTasks.filter(task => task.status != TaskStatusValues.ENDED);
           }
-        }
-      );
+        });   
+  }
+
+  sortTasksByStatus(tasks: MyTask[]) {
+    if(tasks && tasks.length > 0){
+      var x = _.so
+      tasks.sort((a) => 
+         a.status
+      )
+      debugger
+      for(let i = 0; i < tasks.length; i++){
+
+      }
     }
-    else{
-      this.taskService.getUserTasks().subscribe(result => {
-        if(result) {
-          this.MyTasks = result;
-        }
-      },
-      error => {
-        console.error("error when getting user tasks");
-      }     
-      );
-    } 
-   
   }
 
   public doneTask(task: MyTask): void{
     if(task){
       task.status = TaskStatusValues.DONE;
       this.taskService.updateTask(task).subscribe(()=>{
-        this.removeFormTaskList(task);
+        this.removeIfcantEnd(task);
         this.router.navigateByUrl("/Tasks");
       });
+    }
+  }
+
+  removeIfcantEnd(task: MyTask) {
+    if(!this.secutiry.isSuperUser()){
+      this.removeFormTaskList(task);
     }
   }
 
@@ -72,25 +78,7 @@ export class MyTasksComponent implements OnInit {
     }
   }
 
-  getTaskStatusName(status: number){
-    switch(status){
-      case 1: {
-        return TaskStatus.NEW
-      }
-      case 2: {
-        return TaskStatus.ASSIGNED
-      }
-      case 3: {
-        return TaskStatus.DONE
-      }
-      case 4: {
-        return TaskStatus.ENDED
-      }
-      default :{
-        return ""
-      }
-    }
-  }
+  
 
   goToTaskDetails(id: number){
     var url = `/Tasks/${id}`
@@ -99,10 +87,31 @@ export class MyTasksComponent implements OnInit {
   
 
   removeFormTaskList(task: MyTask) {
-    const index: number = this.MyTasks.indexOf(task);
-    if (index !== -1) {
-        this.MyTasks.splice(index, 1);
-    }        
+    this.MyTasks.filter(x => x.id != task.id)
+    // const index: number = this.MyTasks.indexOf(task);
+    // if (index !== -1) {
+    //     this.MyTasks.splice(index, 1);
+    // }        
+  }
+
+  getTaskStatusName(status: number){
+    switch(status){
+      case TaskStatusValues.NEW: {
+        return TaskStatusNames.NEW
+      }
+      case TaskStatusValues.ASSIGNED: {
+        return TaskStatusNames.ASSIGNED
+      }
+      case TaskStatusValues.DONE: {
+        return TaskStatusNames.DONE
+      }
+      case TaskStatusValues.ENDED: {
+        return TaskStatusNames.ENDED
+      }
+      default :{
+        return ""
+      }
+    }
   }
 
   goBack(): void {

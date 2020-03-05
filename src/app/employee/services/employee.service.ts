@@ -19,10 +19,10 @@ export class EmployeeService {
     this.token = localStorage.getItem("jwt")
   }
 
-  private EmployeesDBUrl = 'http://localhost:49362/api/values';
-  private uploadImgDBUrl = 'http://localhost:49362/api/values/upload-image';
-  private getImgDBUrl = 'http://localhost:49362/api/values/img';
-  private SUPER_USER_ID = 10;
+  private readonly EmployeesDBUrl = 'http://localhost:49362/api/values';
+  private readonly uploadImgDBUrl = 'http://localhost:49362/api/values/upload-image';
+  private readonly getImgDBUrl = 'http://localhost:49362/api/values/img';
+  private readonly SUPER_USER_ID = 10;
 
   
   fileUpload(file: FormData, id: number): Observable<HttpEvent<{}>> {

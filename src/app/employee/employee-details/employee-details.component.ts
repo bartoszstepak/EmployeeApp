@@ -45,7 +45,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.getSub = this.employeeService.getEmployee(this.id).subscribe(employee => {
       this.employee = employee;
-        this.getEmployImg();
+      this.getEmployImg();
       
     });
   }

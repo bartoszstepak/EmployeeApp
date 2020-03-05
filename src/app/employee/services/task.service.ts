@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { MyTask } from '../model/MyTask';
+import { MyTask, TaskStatusNames } from '../model/MyTask';
 import { catchError } from 'rxjs/operators';
 import { EmployeeService } from './employee.service';
 import { User } from '../Model/EmployeeData';
@@ -31,11 +31,20 @@ export class TaskService{
     this.token = localStorage.getItem("jwt");
   }
  
-  getTasks(): Observable<MyTask[]> {
+  getAllTasks(): Observable<MyTask[]> {
     return this.http.get<MyTask[]>(this.TaskBaseURL)
       .pipe(
         catchError(this.handleError<MyTask[]>('getTasks', []))
       );
+  }
+
+  getTasks(hasFullAccess: boolean): Observable<MyTask[]>  {
+    if( hasFullAccess ) {
+      return this.getAllTasks();
+    }
+    else {
+      return this.getUserTasks();
+    }
   }
 
   
@@ -64,8 +73,8 @@ export class TaskService{
     );
   }
 
-  createTask(employee: MyTask): Observable<any> {
-    return this.http.post<any>(this.TaskBaseURL, employee, {observe: 'response'}).pipe(
+  createTask(task: MyTask): Observable<any> {
+    return this.http.post<any>(this.TaskBaseURL, task, {observe: 'response'}).pipe(
       catchError(this.handleError<any>('createTask'))
     );
   }
@@ -75,6 +84,7 @@ export class TaskService{
     return this.http.delete<MyTask>(url);
   }
 
+  
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

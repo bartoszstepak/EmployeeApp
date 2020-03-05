@@ -22,7 +22,7 @@ import { CreateAdminAccountComponent } from './create-admin-account/create-admin
     NgbModule,
     RouterModule.forChild([
       { 
-        path: 'auth/admin',
+        path: 'login',
          component: AuthenticationComponent
         }, 
         {

@@ -1,12 +1,11 @@
 <div class="table-responsive">
     <table class="table table-hover">
-        <thead class="thead-ligth">
+        <thead>
             <tr class="table-secondary">
                 <th>Id</th>
                 <th>Title</th>
                 <th>Content</th>
                 <th (click)="sortByPriority()">Status</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <colgroup>
@@ -15,49 +14,30 @@
             <col span="1" style="width: 35%;">
             <col span="1" style="width: 20%;">
             <col span="1" style="width: 20%;">
-
-
         </colgroup>
         <tbody>
-            <ng-container *ngFor="let task of MyTasks">
-            <tr  *ngIf="task.status != endStatus" (click)="goToTaskDetails(task.id)">
-                <th scope="row">{{task.id}}</th>
-                <td class="">{{task.title}}</td>
-                <td>{{task.content}}</td>
-                <td>{{getTaskStatusName(task.status)}}</td>
-                <td>
-                    <button class="btn btn-success btn-sm" (click)="doneTask(task)"
-                        [disabled]="task.status == doneStatus">done</button>
-                    <button *ngIf="this.secutiry.isSuperUser()" class="btn btn-success btn-sm" (click)="endTask(task)"
-                        [disabled]="task.status == endStatus">end</button>
-                </td>
-            </ng-container>
+            <ng-container *ngIf="this.secutiry.isSuperUser(); then superUserList else userList"></ng-container>
         </tbody>
     </table>
 </div>
 
-<ng-template #userList>
-    <tr  *ngIf="this.secutiry.isSuperUser(); then superUserList else userList" (click)="goToTaskDetails(task.id)">
-        <th scope="row">{{task.id}}</th>
-        <td class="">{{task.title}}</td>
-        <td>{{task.content}}</td>
-        <td>{{task.status}}</td>
-        <td>
-            <button class="btn btn-success btn-sm" (click)="doneTask(task)"
-                [disabled]="task.status == doneStatus">done</button>
-            <button class="btn btn-success btn-sm" (click)="endTask(task)"
-                [disabled]="task.status == endStatus">end</button>
-        </td>
-</ng-template>
 <ng-template #superUserList>
-    <tr  *ngIf="task.status != endStatus && task.status != doneStatus" (click)="goToTaskDetails(task.id)">
-        <th scope="row">{{task.id}}</th>
-        <td class="">{{task.title}}</td>
-        <td>{{task.content}}</td>
-        <td>{{task.status}}</td>
-        <td>
-            <button class="btn btn-success btn-sm" (click)="doneTask(task)"
-                [disabled]="task.status == doneStatus">done</button>
-        </td>
-</ng-template>
+    <ng-container *ngFor="let task of MyTasks">
 
+        <tr (click)="goToTaskDetails(task.id)">
+            <th scope="row">{{task.id}}</th>
+            <td class="">{{task.title}}</td>
+            <td>{{task.content}}</td>
+            <td>{{getTaskStatusName(task.status)}}</td>
+            </ng-container>
+</ng-template>
+<ng-template #userList>
+    <ng-container *ngFor="let task of MyTasks">
+
+        <tr (click)="goToTaskDetails(task.id)">
+            <th scope="row">{{task.id}}</th>
+            <td class="">{{task.title}}</td>
+            <td>{{task.content}}</td>
+            <td>{{getTaskStatusName(task.status)}}</td>
+    </ng-container>
+</ng-template>
